@@ -67,6 +67,11 @@ resource "aws_route_table" "private-rt" {
     gateway_id = "local"
   }
 
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.main.id
+  }
+
   tags = {
     Name = var.private-rt.tags["name"]
     env = var.private-rt.tags["env"]
