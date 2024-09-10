@@ -87,7 +87,19 @@ resource "aws_route_table_association" "private" {
 
 resource "aws_eip" "main" {
   tags = {
-    name = var.eip["name"]
-    env = var.eip["env"]
+    name = var.eip.tags["name"]
+    env = var.eip.tags["env"]
   }
+}
+
+resource "aws_nat_gateway" "main" {
+  allocation_id = aws_eip.main.id
+  subnet_id     = aws_subnet.public[0].id
+
+  tags = {
+    name = var.natgateway.tags["name"]
+    env = var.natgateway.tags["env"]
+  }
+
+  depends_on = [aws_internet_gateway.dev-vpc-gw]
 }
