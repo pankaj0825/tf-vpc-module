@@ -81,3 +81,27 @@ variable "private-subnet" {
     }
   }
 }
+
+variable "eip" {
+  type = object({
+    tags = map(string)
+  })
+  default = {
+    tags = {
+      "name" = "develop-eip"
+      "env" = "development"
+    }
+  }
+}
+
+variable "natgateway" {
+  type = object({
+    tags = map(string) 
+  })
+  default = {
+    tags = {
+      "name" = "develop-nat"
+      "env" = "development"
+    }
+  }
+}
